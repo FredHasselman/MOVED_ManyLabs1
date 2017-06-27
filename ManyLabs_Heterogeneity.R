@@ -1,10 +1,10 @@
 # MANYLABS HETEROGENEITY ANALYSIS ------------------------------------------------------------------------------------------------------
 #
-# Heterogeneity and meta analysis using package 'metafor' 
+# Heterogeneity and meta analysis using package 'metafor'
 #
 # Produces a file named 'heterogeneity.pdf' with meta-analysis output, and several plots
 # Ignore the warnings, they are produced by capturing the output
-# 
+#
 # The file 'MLforR.xlsx' is needed, available at the Open Science Framework project pages: https://openscienceframework.org/project/WX7Ck/
 #
 # Note: This script is not optimised for speed or efficiency, but for readability and reproducability
@@ -44,12 +44,12 @@ pdf(paste("heterogeneity.pdf",sep=""),paper="a4r",width=0,height=0)
 
 for(i in 1:(nWS)){
   dfma <- df[[i]]
-  
+
   # Remove overall and summary ES
   idX  <- grepl(":",dfma$Site)
   dfma <- dfma[!idX,]
   snames <- unique(dfma$Site)
-  
+
   # Perform meta-analysis depending on sheetindex (= study)
   ifelse(i == 16,{
     sma <- rma(measure="COR", ri=dfma[,4], ni=dfma[,2],slab=snames,data=dfma)},{
@@ -61,7 +61,7 @@ for(i in 1:(nWS)){
                     n1i=RowN1,n2i=RowN2,slab=snames,data=dfma)},{
           sma  <- rma(measure="SMD", m1i=dfma[,5], m2i=dfma[,6], sd1i=dfma[,7], sd2i=dfma[,8], n1i=dfma[,2], n2i=dfma[,3],slab=snames,data=dfma) })
     })
-  
+
   # Print output to pdf
   text<-capture.output(print(sma))
   textplot(text)
@@ -69,17 +69,17 @@ for(i in 1:(nWS)){
 
   # Forest plot
   forest.rma(sma,slab=dfma$Site,main=paste("Random Effects model for ",name[i],sep=""))
-  
+
   # Funnel plot
   funnel(sma,addtau2=F,level=c(90, 95, 99), shade=c("white", "gray", "darkgray"),refline=0, yaxis="seinv", main=paste("Funnel plot\n RE model for ",name[i],"\n dotted line = ES estimate",sep=""), xlab="Observed Outcome\n (Areas around ES=0 indicate pseudo CIs 90, 95, 99)")
   segments(x0=sma$b,y0=-1,y1=(nrow(dfma)),lty=2,lwd=1)
-  
+
   # Influence plot
   baujat(sma,main=paste("Influence plot (Baujat) \n RE model for ",name[i],sep=""))
-  
+
   # Galbraith plot
   radial.rma(sma,main=paste("Radial plot (Galbraith) \n RE model for ",name[i],sep=""))
-  
+
   rm(dfma,sma,text)
 }
 
