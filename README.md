@@ -1,3 +1,6 @@
+MANYLABS 1 FILES HAVE MOVED HERE: https://github.com/FredHasselman/manylabRs/tree/master/ManyLabs1
+
+
 # ManyLabs 1
 
 This repisotory contains R analysis script that were used to generate some of the results reported of the ManyLabs 1 project: https://osf.io/wx7ck/
