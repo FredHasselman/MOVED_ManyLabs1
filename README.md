@@ -1,5 +1,9 @@
-MANYLABS 1 FILES HAVE MOVED HERE: https://github.com/FredHasselman/manylabRs/tree/master/ManyLabs1
 
+The ManyLabs repositories moved here:  https://github.com/ManyLabsOpenScience
+
+Documentation and tutorials are here: https://manylabsopenscience.github.io
+
+------
 
 # ManyLabs 1
 
